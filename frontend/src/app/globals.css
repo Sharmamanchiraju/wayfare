@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors: Sunset Amber (Amber/Orange spectrum) */
+  --color-primary-50: #FFFBEB;
+  --color-primary-100: #FEF3C7;
+  --color-primary-200: #FDE68A;
+  --color-primary-300: #FCD34D;
+  --color-primary-400: #FBBF24;
+  --color-primary-500: #F59E0B;
+  --color-primary-600: #D97706;
+  --color-primary-700: #B45309;
+  --color-primary-800: #92400E;
+  --color-primary-900: #78350F;
+  --color-primary-950: #451A03;
+
+  /* Theme roles */
+  --color-primary: #D97706;
+  --color-primary-hover: #B45309;
+  --color-primary-dark: #78350F;
+  --color-twilight-indigo: #1E1B4B;
+  
+  --color-success: #10B981;
+  --color-success-bg: #ECFDF5;
+  --color-success-text: #047857;
+
+  --color-pending: #F59E0B;
+  --color-pending-bg: #FFFBEB;
+  --color-pending-text: #B45309;
+
+  --color-error: #EF4444;
+  --color-error-bg: #FEF2F2;
+  --color-error-text: #B91C1C;
+
+  --color-info: #0EA5E9;
+  --color-info-bg: #F0F9FF;
+  --color-info-text: #0369A1;
+
+  --color-app-bg: #F8F9FB;
+  --color-card-bg: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  
+  /* Font Families */
+  --font-sans: "Inter", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-serif: "Fraunces", var(--font-fraunces), Georgia, serif;
+
+  /* Radius overrides */
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+}
+
+@layer base {
+  :root {
+    --background: #F8F9FB;
+    --foreground: #111827;
+  }
+
+  body {
+    background-color: var(--color-app-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* Global numeric & tabular-num tracking tokens */
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Keyboard focus states visibility */
+  input:focus-visible, 
+  button:focus-visible, 
+  a:focus-visible, 
+  select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Custom utility classes */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #E5E7EB;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #D1D5DB;
+}
+
+/* Float Animations for TripPlanner UI elements */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Ken Burns animation styles */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.08) translate(1%, -0.5%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 25s ease-in-out infinite;
+}
+
+/* Individual slide slow Ken-Burns animation loop */
+@keyframes slideKenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(1%, -0.5%);
+  }
+}
+
+.animate-slide-kenburns {
+  animation: slideKenBurns 9.5s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-slide-kenburns {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .slideshow-slide {
+    transition: none !important;
+  }
+
+  .slideshow-slide:not(:first-child) {
+    opacity: 0 !important;
+  }
+
+  .slideshow-slide:first-child {
+    opacity: 1 !important;
+    z-index: 10 !important;
+  }
+
+  /* Disable transitions and hover translate lifts globally */
+  * {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: scroll !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    transform: none !important;
+  }
+}
